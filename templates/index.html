@@ -1,52 +1,162 @@
-
+.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flash Messages</title>
+    <title>Career Opportunities | My Flask Web App</title>
     <style>
+        :root {
+            --primary-color: #1a73e8;
+            --hover-color: #1557b0;
+            --background-color: #f5f7fa;
+            --card-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
             padding: 20px;
-            background-color: #f9f9f9;
-        }
-        .message-container {
-            max-width: 600px;
-            margin: 20px auto;
-        }
-        .flash-message {
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            background-color: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        p {
+            background-color: var(--background-color);
             line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: var(--card-shadow);
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: #555;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            text-align: center;
+            margin: 40px 0;
+            font-size: 2rem;
+        }
+
+        .jobs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .job-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: var(--card-shadow);
+            border: 1px solid #eee;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .job-title {
+            color: var(--primary-color);
+            margin: 0 0 16px 0;
+            font-size: 1.4rem;
+        }
+
+        .job-location, .job-salary {
+            color: #666;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: var(--card-shadow);
+        }
+
+        button:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+        }
+
+        .icon {
+            font-size: 1.2rem;
+            margin-right: 8px;
         }
     </style>
 </head>
 <body>
-    <div class="message-container">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="flash-message">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        
-        <h1>Welcome to Messages</h1>
-        <p>Messages will appear above this text.</p>
+    <div class="header">
+        <h1>Career Opportunities</h1>
+        <p>Join our team and build the future together</p>
+    </div>
+
+    <img class="banner-image" src="{{ url_for('static', filename='image.jpg') }}" alt="Company Office">
+    
+    <p class="intro-text">
+        We're looking for talented individuals who are passionate about innovation and technology. 
+        Join our dynamic team and work on exciting projects that make a difference.
+    </p>
+
+    <h2 class="section-title">Current Openings</h2>
+    <div class="jobs-container">
+        {% for job in jobs %}
+        <div class="job-card">
+            <h3 class="job-title">{{ job.title }}</h3>
+            <p class="job-location">
+                <span class="icon">📍</span>
+                {{ job.location }}
+            </p>
+            <p class="job-salary">
+                <span class="icon">💰</span>
+                {{ job.salary }}
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="contact-section">
+        <button onclick="window.location.href='mailto:careers@company.com'">
+            Apply Now
+        </button>
     </div>
 </body>
 </html>

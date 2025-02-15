@@ -25,7 +25,7 @@ JOBS = [
 
 @app.route('/')
 def home():
-    return render_template('p1home.html', jobs=JOBS)
+    return render_template('index.html', jobs=JOBS)
 
 if __name__ == "__main__":
     app.run(debug=True)
